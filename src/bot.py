@@ -1,5 +1,6 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
+import sys
 
 from botbuilder.core import ActivityHandler, TurnContext
 from botbuilder.schema import ChannelAccount
@@ -10,13 +11,12 @@ class MyBot(ActivityHandler):
     # See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
 
     async def on_message_activity(self, turn_context: TurnContext):
+        print(1212314123321321)
         print(turn_context.activity.text)
-        await turn_context.send_activity(f"You said '{ turn_context.activity.text }'")
-        # print(turn_context.activity.text)
-        # send a get request to localhost:5000/has_directory
-        # response = requests.get('http://localhost:5000/has_directory')
-        # message = response.json().get()
-        # await turn_context.send_activity(f"'{ response.text }'")
+        try:
+            await turn_context.send_activity(f"You said '{turn_context.activity.text}'")
+        except Exception as e:
+            print(f"Error sending activity: {e}", file=sys.stderr)
 
     async def on_members_added_activity(
         self,
